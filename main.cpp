@@ -33,8 +33,6 @@ void average_colors(std::vector<Pixel> &pixel_list){
 
 Pixel make_pixel(std::string& line){
 	
-	std::cout << "Test" << std::endl;
-
 	Pixel pixel;
 	int pos;
 	pos = line.find(',');
@@ -56,12 +54,6 @@ Pixel make_pixel(std::string& line){
 
 	pixel.b = stof(line);
 	
-	std::cout << pixel.x << std::endl;
-	std::cout << pixel.y << std::endl;
-	std::cout << pixel.r << std::endl;
-	std::cout << pixel.g << std::endl;
-	std::cout << pixel.b << std::endl;
-
 	return pixel;
 
 
@@ -87,8 +79,10 @@ void flip_vertically(std::vector<Pixel>&pixel_list){
 
 
 	for (const auto& p : pixel_list) {
-    		file << p.x << "," << p.y << "," << p.r << "," << p.g << "," << p.b << "\n";
+    		file << p.x << "," << p.y << "," << p.r << "," << p.g << "," << p.b << std::endl;
 	}
+	
+	std::cout << "Successfully wrote to flipped.dat\n" << std::endl;
 
 	file.close();
 }
@@ -102,11 +96,10 @@ int main(int argc, char* argv[]){
 
 	if (file.is_open()){ 
 		
-		std::cout << "Opened file " << argv[1] << std::endl;
+		std::cout << "Successfully opened file " << argv[1] << "\n" << std::endl;
 		
 		while(getline(file, line)){
 		
-			std::cout << argv[1] << std::endl;
 			pixel_list.push_back(make_pixel(line));
 		}
 
@@ -125,10 +118,5 @@ int main(int argc, char* argv[]){
 	flip_vertically(pixel_list);
 	
 	average_colors(pixel_list);
-
-	for (int i = 0; i < pixel_list.size(); i++) {
-    		std::cout << "x: " << pixel_list[i].x << ", y: " << pixel_list[i].y << ", r: " << pixel_list[i].r << ", g: " << pixel_list[i].g << ", b: " << pixel_list[i].b << std::endl;
-	}
-	std::cout << "Number of pixels loaded: " << pixel_list.size() << std::endl;
 
 }
